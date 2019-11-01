@@ -64,6 +64,17 @@ class Swiper extends Component {
     this.initializeCardStyle()
     this.initializePanResponder()
   }
+  
+    static getDerivedStateFromProps(props, state) {
+    if (props.cards !== state.cards) {
+      return {
+        cards: props.cards,
+        ...calculateCardIndexes(props.cardIndex, props.cards),
+      };
+    }
+    // no state change
+    return null;
+  }
 
   shouldComponentUpdate = (nextProps, nextState) => {
     const { props, state } = this
